@@ -46,10 +46,12 @@ PID 알고리즘을 이해하고 모터 속도 제어 및 라인 트레이싱에
 - [ROS Noetic](http://wiki.ros.org/noetic/Installation) (Ubuntu 20.04)
 - rosserial_arduino 패키지
 
-### 설치 가이드
+### 📖 설치 가이드
 1. **[시작 가이드](docs/GETTING_STARTED.md)** - 전체 개요 및 학습 경로
 2. **[ROS 설정](docs/ROS_SETUP.md)** - ROS 및 rosserial 설치
 3. **[하드웨어 연결](docs/HARDWARE_SETUP.md)** - 회로 연결 방법
+4. **[Quick Reference](docs/QUICK_REFERENCE.md)** - 빠른 참조 가이드
+5. **[FAQ](docs/FAQ.md)** - 자주 묻는 질문
 
 ## 📖 학습 경로
 

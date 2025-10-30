@@ -170,6 +170,15 @@ Arduino Uno의 메모리는 제한적입니다 (SRAM 2KB).
 8. 물체 인식 및 추적
 9. 다중 로봇 협업
 
+## 추가 문서
+
+이 저장소의 다른 유용한 문서들:
+- **[Quick Reference](QUICK_REFERENCE.md)** - 핀 배치, 명령어 치트시트
+- **[FAQ](FAQ.md)** - 자주 묻는 질문과 답변
+- **[Hardware Setup](HARDWARE_SETUP.md)** - 상세한 회로 연결 가이드
+- **[ROS Setup](ROS_SETUP.md)** - ROS 설치 및 설정
+- **[Project Structure](PROJECT_STRUCTURE.md)** - 프로젝트 구조 설명
+
 ## 추가 자료
 
 ### 온라인 리소스
