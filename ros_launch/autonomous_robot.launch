@@ -1,0 +1,33 @@
+<!--
+  자율주행 로봇 전체 시스템 launch 파일
+  
+  rosserial + rviz + rqt 통합 실행
+  
+  사용법:
+  roslaunch arduino_ros_labs autonomous_robot.launch
+-->
+<launch>
+  <!-- Arduino 포트 설정 -->
+  <arg name="port" default="/dev/ttyACM0"/>
+  <arg name="use_rviz" default="true"/>
+  <arg name="use_rqt" default="true"/>
+
+  <!-- rosserial 노드 -->
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+    <param name="port" value="$(arg port)"/>
+    <param name="baud" value="57600"/>
+  </node>
+
+  <!-- RViz 시각화 (옵션) -->
+  <node if="$(arg use_rviz)" name="rviz" pkg="rviz" type="rviz" 
+        args="-d $(find arduino_ros_labs)/rviz/robot_config.rviz" output="screen"/>
+
+  <!-- rqt_plot (옵션) -->
+  <node if="$(arg use_rqt)" name="sensor_plot" pkg="rqt_plot" type="rqt_plot" 
+        args="/sensors/ultrasonic/range" output="screen"/>
+
+  <!-- 로봇 상태 모니터 -->
+  <node name="robot_status" pkg="rostopic" type="rostopic" 
+        args="echo /robot/status" output="screen"/>
+
+</launch>

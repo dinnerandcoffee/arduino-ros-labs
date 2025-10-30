@@ -1,0 +1,18 @@
+<!--
+  기본 rosserial 실행 launch 파일
+  
+  사용법:
+  roslaunch arduino_ros_labs basic_serial.launch
+-->
+<launch>
+  <!-- Arduino 포트 설정 -->
+  <arg name="port" default="/dev/ttyACM0"/>
+  <arg name="baud" default="57600"/>
+
+  <!-- rosserial 노드 실행 -->
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+    <param name="port" value="$(arg port)"/>
+    <param name="baud" value="$(arg baud)"/>
+  </node>
+
+</launch>
