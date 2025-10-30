@@ -1,0 +1,42 @@
+# Arduino build artifacts
+*.hex
+*.eep
+*.elf
+*.map
+
+# Arduino IDE
+*.autosave
+__vm/
+.vs/
+
+# ROS
+build/
+devel/
+install/
+.catkin_workspace
+*.pyc
+.catkin_tools/
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Log files
+*.log
+
+# Documentation builds
+docs/_build/
+docs/.doctrees/
