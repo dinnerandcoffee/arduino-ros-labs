@@ -1,16 +1,14 @@
 /*
- * Lab 3: rosserial Hello World
- * rosserial을 사용한 ROS 통신 기본
+ * Lab 3: rosserial 기본 설정 (rosserial Setup)
  * 
- * 이 예제는 Arduino에서 ROS로 메시지를 발행합니다.
+ * Arduino와 ROS 간의 기본 통신을 설정합니다.
  * 
  * 필요 라이브러리:
  * - ros_lib (rosserial_arduino)
  * 
- * ROS 측 실행:
- * $ roscore
- * $ rosrun rosserial_python serial_node.py /dev/ttyUSB0
- * $ rostopic echo /chatter
+ * 설치 방법:
+ * 1. ROS에서: sudo apt-get install ros-<distro>-rosserial-arduino
+ * 2. 라이브러리 생성: rosrun rosserial_arduino make_libraries.py ~/Arduino/libraries/
  */
 
 #include <ros.h>

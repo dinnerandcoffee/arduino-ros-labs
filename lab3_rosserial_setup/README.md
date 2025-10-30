@@ -1,90 +1,104 @@
-# Lab 3: rosserial 설정 (rosserial Setup)
+# Lab 3: rosserial 설정
 
 ## 목표
 Arduino와 ROS 간의 통신을 설정하고 기본적인 Publisher/Subscriber 패턴을 학습합니다.
 
-## 사전 준비
+## 필요 환경
+- **ROS** (Noetic, Melodic, 또는 Humble)
+- **Arduino IDE**
+- **rosserial 패키지**
 
-### ROS 설치 (Ubuntu)
-```bash
-# ROS Noetic (Ubuntu 20.04) 또는 ROS Melodic (Ubuntu 18.04)
-sudo apt-get install ros-noetic-rosserial-arduino
-sudo apt-get install ros-noetic-rosserial
-```
+## rosserial 설치
 
-### Arduino 라이브러리 설치
+### ROS1 (Noetic/Melodic)
 ```bash
-# ros_lib 생성
+# rosserial 설치
+sudo apt-get install ros-$ROS_DISTRO-rosserial-arduino
+sudo apt-get install ros-$ROS_DISTRO-rosserial
+
+# ros_lib 라이브러리 생성
 cd ~/Arduino/libraries
 rosrun rosserial_arduino make_libraries.py .
 ```
 
-또는 Arduino IDE에서:
-1. Sketch → Include Library → Manage Libraries
-2. "Rosserial Arduino Library" 검색 및 설치
-
-## 실습 내용
-
-### 1. Hello World Publisher
-- **파일**: `hello_world.ino`
-- **기능**: Arduino에서 ROS로 문자열 메시지 발행
-- **토픽**: `/chatter` (std_msgs/String)
-
-#### 실행 방법
+### ROS2 (Humble/Foxy)
 ```bash
-# Terminal 1: ROS 마스터 실행
+# micro-ROS 사용 권장
+# 또는 rosserial for ROS2
+sudo apt-get install ros-$ROS_DISTRO-rosserial
+```
+
+## 예제 1: Hello World Publisher
+
+### Arduino 업로드
+1. `hello_world.ino` 파일 열기
+2. ros_lib 라이브러리가 설치되었는지 확인
+3. Arduino에 업로드
+
+### ROS 실행
+```bash
+# 터미널 1: roscore 실행
 roscore
 
-# Terminal 2: rosserial 노드 실행
-rosrun rosserial_python serial_node.py /dev/ttyUSB0
+# 터미널 2: rosserial 노드 실행
+rosrun rosserial_python serial_node.py /dev/ttyACM0
 
-# Terminal 3: 토픽 확인
+# 터미널 3: 메시지 확인
 rostopic echo /chatter
 ```
 
-### 2. LED Subscriber
-- **파일**: `led_control.ino`
-- **기능**: ROS 토픽을 구독하여 LED 제어
-- **토픽**: `/led` (std_msgs/Bool)
-- **하드웨어**: Pin 13 (내장 LED)
-
-#### 실행 방법
-```bash
-# rosserial 노드 실행 후
-# LED ON
-rostopic pub /led std_msgs/Bool "data: true"
-
-# LED OFF
-rostopic pub /led std_msgs/Bool "data: false"
+**예상 출력:**
+```
+data: "hello world!"
+---
+data: "hello world!"
 ```
 
-## 학습 내용
-1. ros::NodeHandle 초기화
-2. Publisher 생성 및 메시지 발행
-3. Subscriber 생성 및 콜백 함수
-4. rosserial_python 사용법
+## 예제 2: LED Subscriber
+
+### Arduino 업로드
+1. `led_subscriber.ino` 파일 열기
+2. Arduino에 업로드
+
+### ROS 실행
+```bash
+# 터미널 1: roscore 실행
+roscore
+
+# 터미널 2: rosserial 노드 실행
+rosrun rosserial_python serial_node.py /dev/ttyACM0
+
+# 터미널 3: LED 켜기
+rostopic pub /led_control std_msgs/Bool "data: true"
+
+# LED 끄기
+rostopic pub /led_control std_msgs/Bool "data: false"
+```
+
+## 통신 프로토콜
+- **Baud Rate**: 57600 (기본값)
+- **토픽 기반 통신**: Publisher/Subscriber 패턴
+- **메시지 타입**: ROS 표준 메시지 타입 사용
 
 ## 문제 해결
 
 ### 포트 권한 오류
 ```bash
-sudo chmod 666 /dev/ttyUSB0
+sudo chmod 666 /dev/ttyACM0
 # 또는
 sudo usermod -a -G dialout $USER
-# 재로그인 필요
 ```
 
-### 포트 찾기
-```bash
-ls /dev/ttyUSB*
-# 또는
-ls /dev/ttyACM*
-```
+### 연결 실패
+1. Arduino 재부팅
+2. rosserial_python 재시작
+3. USB 케이블 확인
 
-### 연결 확인
-```bash
-rosrun rosserial_python serial_node.py /dev/ttyUSB0 _baud:=57600
-```
+## 주요 개념
+- **NodeHandle**: ROS와 Arduino 간의 통신 핸들러
+- **Publisher**: 데이터를 ROS로 전송
+- **Subscriber**: ROS로부터 데이터 수신
+- **spinOnce()**: 콜백 함수 처리
 
 ## 다음 단계
-Lab 4에서는 센서 데이터를 ROS로 전송하는 방법을 학습합니다.
+Lab 4에서는 센서 데이터를 ROS로 전송합니다.

@@ -1,0 +1,23 @@
+<!--
+  센서 모니터링 launch 파일
+  
+  rosserial + rqt_plot으로 센서 데이터 시각화
+  
+  사용법:
+  roslaunch arduino_ros_labs sensor_monitor.launch
+-->
+<launch>
+  <!-- Arduino 포트 설정 -->
+  <arg name="port" default="/dev/ttyACM0"/>
+
+  <!-- rosserial 노드 -->
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+    <param name="port" value="$(arg port)"/>
+    <param name="baud" value="57600"/>
+  </node>
+
+  <!-- rqt_plot으로 센서 데이터 시각화 -->
+  <node name="sensor_plot" pkg="rqt_plot" type="rqt_plot" 
+        args="/sensors/ultrasonic/range" output="screen"/>
+
+</launch>

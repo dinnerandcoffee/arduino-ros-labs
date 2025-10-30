@@ -1,0 +1,23 @@
+<!--
+  Teleop 제어 launch 파일
+  
+  키보드로 로봇 제어
+  
+  사용법:
+  roslaunch arduino_ros_labs teleop_control.launch
+-->
+<launch>
+  <!-- Arduino 포트 설정 -->
+  <arg name="port" default="/dev/ttyACM0"/>
+
+  <!-- rosserial 노드 -->
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+    <param name="port" value="$(arg port)"/>
+    <param name="baud" value="57600"/>
+  </node>
+
+  <!-- Teleop 키보드 제어 -->
+  <node name="teleop_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" 
+        output="screen" launch-prefix="xterm -e"/>
+
+</launch>
